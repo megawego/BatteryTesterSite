@@ -8,7 +8,23 @@ function handleFileSelect(event) {
   reader.readAsText(event.target.files[0])
 }
 
+function csvStringToArray(inputString){
+  var csvArray=inputString.split("\n");
+  var csvHeader=csvArray[0].split(",");
+  var csvObjectArray=[];
+  var csvTempObject={};
+for(var i=1;i<csvArray.length;i+=1){
+  csvTempObject={};
+  for(var j=0;j<csvHeader.length;j+=1){
+    csvTempObject[csvHeader[j]]=csvArray[i].split(",")[j];
+  }
+  csvObjectArray[i-1]=csvTempObject;
+}
+}
+
 function handleFileLoad(event) {
   console.log(event);
-  document.getElementById('fileContent').textContent = event.target.result;
+  var csvFileData=event.target.result;
+  OutputArray=csvStringToArray(csvFileData);
+  document.getElementById('fileContent').textContent = JSON.stringify(OutputArray);
 }
