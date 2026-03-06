@@ -1,15 +1,16 @@
 function startListener() {
+  
   document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
 }
 
 function handleFileSelect(event) {
-  var reader = new FileReader()
+  var reader = new FileReader();
   reader.onload = handleFileLoad;
-  reader.readAsText(event.target.files[0])
+  reader.readAsText(event.target.files[0]);
 }
 
 function csvStringToArray(inputString){
-  var csvArray=inputString.split("\n");
+  var csvArray=inputString.replace(/(\r)/gm, '').split("\n");
   var csvHeader=csvArray[0].split(",");
   var csvObjectArray=[];
   var csvTempObject={};
@@ -20,10 +21,10 @@ for(var i=1;i<csvArray.length;i+=1){
   }
   csvObjectArray[i-1]=csvTempObject;
 }
+return csvObjectArray;
 }
 
 function handleFileLoad(event) {
-  console.log(event);
   var csvFileData=event.target.result;
   OutputArray=csvStringToArray(csvFileData);
   document.getElementById('fileContent').textContent = JSON.stringify(OutputArray);
