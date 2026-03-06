@@ -16,8 +16,13 @@ function csvStringToArray(inputString){
   var csvTempObject={};
 for(var i=1;i<csvArray.length;i+=1){
   csvTempObject={};
+  csvTempValue="";
   for(var j=0;j<csvHeader.length;j+=1){
-    csvTempObject[csvHeader[j]]=csvArray[i].split(",")[j];
+    csvTempValue=csvArray[i].split(",")[j];
+    if(parseFloat(csvTempValue)!==NaN){
+      csvTempValue=parseFloat(csvTempValue);
+    }
+    csvTempObject[csvHeader[j]]=csvTempValue;
   }
   csvObjectArray[i-1]=csvTempObject;
 }
