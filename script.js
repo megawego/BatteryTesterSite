@@ -4,6 +4,7 @@ function startListener() {
 }
 
 function handleFileSelect(event) {
+  document.getElementById('fileContent').textContent="Loading...";
   var reader = new FileReader();
   reader.onload = handleFileLoad;
   reader.readAsText(event.target.files[0]);
@@ -32,5 +33,5 @@ return csvObjectArray;
 function handleFileLoad(event) {
   var csvFileData=event.target.result;
   OutputArray=csvStringToArray(csvFileData);
-  document.getElementById('fileContent').textContent = JSON.stringify(OutputArray);
+  document.getElementById('fileContent').textContent = JSON.stringify(OutputArray[OutputArray.length-2]);
 }
